@@ -18,6 +18,16 @@
         </v-list-item-content>
       </v-list-item>
 
+      <v-list-item to="/designPage" class="navigation-drawer--list-item">
+        <v-list-item-action>
+          <v-icon>mdi-arrow-right</v-icon>
+        </v-list-item-action>
+
+        <v-list-item-content>
+          <span>Make Design</span>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item to="/excelPage" class="navigation-drawer--list-item">
         <v-list-item-action>
           <v-icon>mdi-clock</v-icon>
