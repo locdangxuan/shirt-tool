@@ -43,15 +43,17 @@
                   :style="rotateImageStyle"
                   contain
                 >
-                  <div
+                  <!-- <div
                     class="design-page--design"
                     :style="designStyle"
                     draggable="true"
                     @dragleave="onDragStart($event)"
                     @dragover.prevent
                   >
-                     <image-uploader/>
-                  </div>
+                     asdsadsad
+                  </div> -->
+                  <add-design/>
+                  
                 </v-img>
               </v-col>
 
@@ -125,12 +127,13 @@
 </template>
 
 <script>
-import ImageUploader from '../image-uploader/ImageUploader';
+// import ImageUploader from '../image-uploader/ImageUploader';
+import AddDesign from '../add-design/AddDesign'
 export default {
   name: 'design-page',
 
   components: {
-    ImageUploader
+    AddDesign
   },
 
   data() {

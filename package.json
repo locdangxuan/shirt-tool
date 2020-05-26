@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "browser-image-size": "^1.1.0",
     "core-js": "^3.6.4",
+    "fabric": "^3.6.3",
     "v-simple-image-input": "0.0.6",
     "vue": "^2.6.11",
     "vue-image-picker": "0.0.1-3",
