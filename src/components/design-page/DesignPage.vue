@@ -56,7 +56,7 @@
                   
                 </v-img>
               </v-col>
-
+              <v-img :src="require('../../assets/mu.png')" ref="addImage" />
               <v-col cols="12" class="d-flex justify-center">
                 <v-btn text @click="radius = radius - 10">
                   <v-icon>mdi-rotate-left</v-icon>
@@ -148,7 +148,7 @@ export default {
       // emptyImage,
       radius: 0,
       designX: 45,
-      designY: 30,
+      designY: 45,
     };
   },
 

@@ -1,5 +1,8 @@
 <template>
-  <canvas class="add-design" ref="can" width="201px" height="100%"></canvas>
+    <div>
+        <canvas class="add-design" ref="can" width="850" height="500"></canvas>
+        <v-img id="addImage" :src="require('./mu.jpg')" ref="addImage" />
+    </div>
 </template>
 
 <script>
@@ -11,15 +14,16 @@ export default {
     const canvas = new fabric.Canvas(ref);
     const rect = new fabric.Rect({
       fill: 'blue',
-      width: 30,
-      height: 30
+      width: 100,
+      height: 100
     });
     canvas.add(rect);
+    
   }
 };
 </script>
 
 <style lang="stylus" scoped>
 .add-design
-    border 5px solid black
+    border 1px solid black
 </style>
