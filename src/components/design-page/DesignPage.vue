@@ -181,8 +181,6 @@ export default {
 
       // console.log(event.screenY, screen.availHeight,event.screenY/screen.availHeight)
       this.designY = event.clientY - 190;
-
-      console.log('on drag start' ,event.clientX, event.clientY)
     },
   }
 };
