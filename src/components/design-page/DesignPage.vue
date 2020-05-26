@@ -43,8 +43,14 @@
                   :style="rotateImageStyle"
                   contain
                 >
-                  <div class="design-page--design" :style="designStyle">
-                    <image-uploader/>
+                  <div
+                    class="design-page--design"
+                    :style="designStyle"
+                    draggable="true"
+                    @dragleave="onDragStart($event)"
+                    @dragover.prevent
+                  >
+                     <image-uploader/>
                   </div>
                 </v-img>
               </v-col>
@@ -146,8 +152,9 @@ export default {
   computed: {
     designStyle() {
       return {
-        "top": `${this.designY}%`,
-        "left": `${this.designX}%`,
+        // "top": `${this.designY}%`,
+        // "left": `${this.designX}%`,
+        "transform": `translate3d(${this.designX}px, ${this.designY}px, 0)`,
       }
     },
 
@@ -173,12 +180,14 @@ export default {
   },
 
   methods: {
-    getClickPosition(event) {
+      onDragStart(event) {
       // console.log(100*(event.screenX)/screen.availWidth);
-      this.designX = 100*(event.screenX)/screen.availWidth;
+      this.designX = event.clientX - 170;
 
-      console.log(event.screenY, screen.availHeight,event.screenY/screen.availHeight)
-      this.designY = 100*event.screenY/screen.availHeight - 25;
+      // console.log(event.screenY, screen.availHeight,event.screenY/screen.availHeight)
+      this.designY = event.clientY - 190;
+
+      console.log('on drag start' ,event.clientX, event.clientY)
     },
   }
 };
@@ -189,7 +198,7 @@ export default {
   border-style solid
   max-height 100px
   max-width 100px
-  position absolute
+  /*position absolute*/
 
 .design-page--image-hover
   border-style solid
