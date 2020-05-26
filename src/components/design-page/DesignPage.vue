@@ -50,7 +50,7 @@
                     @dragleave="onDragStart($event)"
                     @dragover.prevent
                   >
-                     <image-uploader/>
+                    asdasd
                   </div>
                 </v-img>
               </v-col>
@@ -125,13 +125,8 @@
 </template>
 
 <script>
-import ImageUploader from '../image-uploader/ImageUploader';
 export default {
   name: 'design-page',
-
-  components: {
-    ImageUploader
-  },
 
   data() {
     return{
@@ -145,7 +140,7 @@ export default {
       // emptyImage,
       radius: 0,
       designX: 45,
-      designY: 30,
+      designY: 45,
     };
   },
 
