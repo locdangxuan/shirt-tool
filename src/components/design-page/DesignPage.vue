@@ -41,10 +41,11 @@
                 <v-img
                   :src="require('@/assets/mockupDemo.jpg')"
                   :style="rotateImageStyle"
-                  @click="getClickPosition($event)"
                   contain
                 >
-                  <div class="design-page--design" :style="designStyle">asdasd</div>
+                  <div class="design-page--design" :style="designStyle">
+                    <image-uploader/>
+                  </div>
                 </v-img>
               </v-col>
 
@@ -118,8 +119,13 @@
 </template>
 
 <script>
+import ImageUploader from '../image-uploader/ImageUploader';
 export default {
   name: 'design-page',
+
+  components: {
+    ImageUploader
+  },
 
   data() {
     return{
@@ -133,7 +139,7 @@ export default {
       // emptyImage,
       radius: 0,
       designX: 45,
-      designY: 45,
+      designY: 30,
     };
   },
 
