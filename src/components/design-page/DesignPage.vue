@@ -49,8 +49,11 @@
                     draggable="true"
                     @dragleave="onDragStart($event)"
                     @dragover.prevent
+                    @dragend="onDrop($event)"
                   >
-                    asdasd
+<!--                    <div class="resizable">-->
+                      <img :src="require('@/assets/logo.png')" alt="" style="width: 100%; height: 100%"/>
+<!--                    </div>-->
                   </div>
                 </v-img>
               </v-col>
@@ -115,6 +118,10 @@
                     <v-img :src="require('@/assets/empty.jpg')" height="100px" width="100px" contain/>
                   </v-col>
                 </v-row>
+
+                <v-row no-gutters>
+                  <v-btn color="red" class="white--text" @click="canResize = 'none'">OK</v-btn>
+                </v-row>
               </v-card-text>
             </v-card>
           </v-col>
@@ -141,6 +148,7 @@ export default {
       radius: 0,
       designX: 45,
       designY: 45,
+      canResize: 'both',
     };
   },
 
@@ -150,6 +158,7 @@ export default {
         // "top": `${this.designY}%`,
         // "left": `${this.designX}%`,
         "transform": `translate3d(${this.designX}px, ${this.designY}px, 0)`,
+        "resize": `${this.canResize}`,
       }
     },
 
@@ -177,23 +186,45 @@ export default {
   methods: {
       onDragStart(event) {
       // console.log(100*(event.screenX)/screen.availWidth);
-      this.designX = event.clientX - 170;
+
+        // console.log('screenY', screen.availHeight);
+      this.designX = event.clientX - 0.110677 * screen.availWidth;
+      //   this.designX = 100 * event.clientX / screen.availWidth;
+      //   this.designY = 100 * event.clientY / screen.availHeight;
+
+        console.log('screenX', screen.availWidth, event.clientX, this.designX);
 
       // console.log(event.screenY, screen.availHeight,event.screenY/screen.availHeight)
-      this.designY = event.clientY - 190;
+      this.designY = event.clientY - 0.2305825 * screen.availHeight;
+        console.log('screenY', screen.availHeight, event.clientY, this.designY);
     },
+
+    onDrop() {
+        console.log('asdasdas');
+    }
   }
 };
 </script>
 
 <style scoped lang="stylus">
 .design-page--design
-  border-style solid
-  max-height 100px
-  max-width 100px
+  /*border-style solid*/
+  display inline-block
+  /*background red*/
+  overflow hidden
+  line-height 0
+  /*max-height 100px*/
+  /*max-width 100px*/
   /*position absolute*/
 
 .design-page--image-hover
   border-style solid
   border-color orangered
+
+.resizable
+  display inline-block
+  background red
+  resize both
+  overflow hidden
+  line-height 0
 </style>
