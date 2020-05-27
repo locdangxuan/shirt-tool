@@ -189,6 +189,7 @@
       </v-fab-transition>
     </div>
   </v-container>
+
 <!--                <ImageInput-->
 <!--                  v-model="otherImage"-->
 <!--                  @change="(image)=>{values.featured_image = image}">-->
@@ -202,6 +203,7 @@
 <!--                  image-format="png"-->
 <!--                  uploadIcon="mdi-upload"-->
 <!--                />-->
+
 </template>
 
 <script>

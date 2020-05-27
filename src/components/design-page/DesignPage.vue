@@ -38,25 +38,26 @@
           <v-col cols="6">
             <v-row no-gutters v-if="imageShow !== null">
               <v-col cols="12" class="d-flex justify-center">
-                <v-img
+                <!-- <v-img
                   :src="require('@/assets/mockupDemo.jpg')"
                   :style="rotateImageStyle"
                   contain
                 >
-                  <!-- <div
-                    class="design-page--design"
-                    :style="designStyle"
-                    draggable="true"
-                    @dragleave="onDragStart($event)"
-                    @dragover.prevent
-                  >
-                     asdsadsad
-                  </div> -->
                   <add-design/>
                   
-                </v-img>
+                </v-img> -->
+                <!-- <canvas id="mockup" ref="mockup" width="700" height="500"></canvas> -->
+                <add-design/>
+                  <!-- <v-img
+                    :src="require('@/assets/mockupDemo.jpg')"
+                    :style="rotateImageStyle"
+                    contain
+                  >
+                    <add-design/>
+                    
+                  </v-img> -->
+                
               </v-col>
-              <v-img :src="require('../../assets/mu.png')" ref="addImage" />
               <v-col cols="12" class="d-flex justify-center">
                 <v-btn text @click="radius = radius - 10">
                   <v-icon>mdi-rotate-left</v-icon>
@@ -127,7 +128,7 @@
 </template>
 
 <script>
-// import ImageUploader from '../image-uploader/ImageUploader';
+// import { fabric } from 'fabric';
 import AddDesign from '../add-design/AddDesign'
 export default {
   name: 'design-page',
@@ -135,6 +136,15 @@ export default {
   components: {
     AddDesign
   },
+
+  // mounted() {
+  //   const ref = this.$refs.mockup;
+  //   const canvas = new fabric.canvas(ref);
+  //   fabric.Image.fromURL('https://w7.pngwing.com/pngs/10/689/png-transparent-t-shirt-hoodie-clothing-crew-neck-tshirt-mockup-tshirt-angle-logo-thumbnail.png', function(myImg) {
+  //     var img1 = myImg.set({ left: 0, top: 0 ,width:300,height:500});
+  //     canvas.add(img1); 
+  //   });
+  // },
 
   data() {
     return{
@@ -145,7 +155,6 @@ export default {
       ],
       image: null,
       currentMockupType: null,
-      // emptyImage,
       radius: 0,
       designX: 45,
       designY: 45,
@@ -181,18 +190,6 @@ export default {
       }
     }
   },
-
-  methods: {
-      onDragStart(event) {
-      // console.log(100*(event.screenX)/screen.availWidth);
-      this.designX = event.clientX - 170;
-
-      // console.log(event.screenY, screen.availHeight,event.screenY/screen.availHeight)
-      this.designY = event.clientY - 190;
-
-      console.log('on drag start' ,event.clientX, event.clientY)
-    },
-  }
 };
 </script>
 
