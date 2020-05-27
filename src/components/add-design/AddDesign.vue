@@ -26,7 +26,6 @@
 
 <script>
 import { fabric } from 'fabric';
-
 export default {
   props: {
     urlDesign: { type: String, default: null },
