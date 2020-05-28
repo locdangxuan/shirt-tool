@@ -38,42 +38,7 @@
           <v-col cols="6">
             <v-row no-gutters v-if="imageShow !== null">
               <v-col cols="12" class="d-flex justify-center">
-                <!-- <v-img
-                  :src="require('@/assets/mockupDemo.jpg')"
-                  :style="rotateImageStyle"
-                  contain
-                >
-                  <add-design/>
-                  
-                </v-img> -->
-                <!-- <canvas id="mockup" ref="mockup" width="700" height="500"></canvas> -->
-                <add-design/>
-                  <!-- <v-img
-                    :src="require('@/assets/mockupDemo.jpg')"
-                    :style="rotateImageStyle"
-                    contain
-                  >
-                    <add-design/>
-                    
-                  </v-img> -->
-                
-              </v-col>
-              <v-col cols="12" class="d-flex justify-center">
-                <v-btn text @click="radius = radius - 10">
-                  <v-icon>mdi-rotate-left</v-icon>
-                </v-btn>
-
-                <v-btn text @click="radius = radius - 90">
-                  <v-icon>mdi-rotate-left-variant</v-icon>
-                </v-btn>
-
-                <v-btn text @click="radius = radius + 90">
-                  <v-icon>mdi-rotate-right-variant</v-icon>
-                </v-btn>
-
-                <v-btn text @click="radius = radius + 10">
-                  <v-icon>mdi-rotate-right</v-icon>
-                </v-btn>
+                <add-design :url-design="urlDesign"/>
               </v-col>
             </v-row>
           </v-col>
@@ -118,6 +83,23 @@
                     <v-img :src="require('@/assets/empty.jpg')" height="100px" width="100px" contain/>
                   </v-col>
                 </v-row>
+
+                <v-row no-gutters>
+                  <v-col cols="12" class="mb-5">
+                    <h2>Upload Design</h2>
+                  </v-col>
+
+                  <v-col cols="12">
+                    <v-file-input
+                      label="Design input"
+                      filled
+                      prepend-icon="mdi-camera"
+                      v-model="design"
+                      dense
+                      :disabled="design!==undefined"
+                    />
+                  </v-col>
+                </v-row>
               </v-card-text>
             </v-card>
           </v-col>
@@ -158,10 +140,20 @@ export default {
       radius: 0,
       designX: 45,
       designY: 45,
+      design: undefined,
     };
   },
 
   computed: {
+    urlDesign() {
+      console.log('design', this.design);
+      if (this.design !== undefined) {
+        const urlDesign =  URL.createObjectURL(this.design);
+        return urlDesign;
+      }
+      return null;
+    },
+
     designStyle() {
       return {
         // "top": `${this.designY}%`,

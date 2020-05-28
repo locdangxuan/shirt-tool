@@ -93,7 +93,7 @@
           <v-col cols="12">
             <v-row>
               <v-col cols="6" class="d-flex justify-start">
-                <h2>Other images</h2>
+                <h2>Color of mockup</h2>
               </v-col>
 
               <v-col cols="6" class="d-flex justify-end">
@@ -122,6 +122,7 @@
                   </v-row>
                 </v-card>
               </v-col>
+              <image-uploader />
             </v-row>
           </v-col>
         </v-row>
@@ -209,13 +210,14 @@
 <script>
 // import VImageInput from 'vuetify-image-input';
 // import ImageInput from "@/components/common/ImageInput";
-
+import ImageUploader from '../image-uploader/ImageUploader';
 export default {
   name: 'mockup-type-page',
 
   components: {
     // VImageInput,
     // ImageInput,
+    ImageUploader
   },
 
   data() {
