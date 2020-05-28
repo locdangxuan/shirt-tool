@@ -38,42 +38,7 @@
           <v-col cols="6">
             <v-row no-gutters v-if="imageShow !== null">
               <v-col cols="12" class="d-flex justify-center">
-                <v-img
-                  :src="require('@/assets/mockupDemo.jpg')"
-                  :style="rotateImageStyle"
-                  contain
-                >
-                  <div
-                    class="design-page--design"
-                    :style="designStyle"
-                    draggable="true"
-                    @dragleave="onDragStart($event)"
-                    @dragover.prevent
-                    @dragend="onDrop($event)"
-                  >
-<!--                    <div class="resizable">-->
-                      <img :src="require('@/assets/logo.png')" alt="" style="width: 100%; height: 100%"/>
-<!--                    </div>-->
-                  </div>
-                </v-img>
-              </v-col>
-
-              <v-col cols="12" class="d-flex justify-center">
-                <v-btn text @click="radius = radius - 10">
-                  <v-icon>mdi-rotate-left</v-icon>
-                </v-btn>
-
-                <v-btn text @click="radius = radius - 90">
-                  <v-icon>mdi-rotate-left-variant</v-icon>
-                </v-btn>
-
-                <v-btn text @click="radius = radius + 90">
-                  <v-icon>mdi-rotate-right-variant</v-icon>
-                </v-btn>
-
-                <v-btn text @click="radius = radius + 10">
-                  <v-icon>mdi-rotate-right</v-icon>
-                </v-btn>
+                <add-design :url-design="urlDesign"/>
               </v-col>
             </v-row>
           </v-col>
@@ -120,7 +85,19 @@
                 </v-row>
 
                 <v-row no-gutters>
-                  <v-btn color="red" class="white--text" @click="canResize = 'none'">OK</v-btn>
+                  <v-col cols="12" class="mb-5">
+                    <h2>Upload Design</h2>
+                  </v-col>
+
+                  <v-col cols="12">
+                    <v-file-input
+                      label="Design input"
+                      filled
+                      prepend-icon="mdi-camera"
+                      v-model="design"
+                      dense
+                    />
+                  </v-col>
                 </v-row>
               </v-card-text>
             </v-card>
@@ -132,8 +109,23 @@
 </template>
 
 <script>
+// import { fabric } from 'fabric';
+import AddDesign from '../add-design/AddDesign'
 export default {
   name: 'design-page',
+
+  components: {
+    AddDesign
+  },
+
+  // mounted() {
+  //   const ref = this.$refs.mockup;
+  //   const canvas = new fabric.canvas(ref);
+  //   fabric.Image.fromURL('https://w7.pngwing.com/pngs/10/689/png-transparent-t-shirt-hoodie-clothing-crew-neck-tshirt-mockup-tshirt-angle-logo-thumbnail.png', function(myImg) {
+  //     var img1 = myImg.set({ left: 0, top: 0 ,width:300,height:500});
+  //     canvas.add(img1);
+  //   });
+  // },
 
   data() {
     return{
@@ -144,21 +136,28 @@ export default {
       ],
       image: null,
       currentMockupType: null,
-      // emptyImage,
       radius: 0,
       designX: 45,
       designY: 45,
-      canResize: 'both',
+      design: undefined,
     };
   },
 
   computed: {
+    urlDesign() {
+      console.log('design', this.design);
+      if (this.design !== undefined) {
+        const urlDesign =  URL.createObjectURL(this.design);
+        return urlDesign;
+      }
+      return null;
+    },
+
     designStyle() {
       return {
         // "top": `${this.designY}%`,
         // "left": `${this.designX}%`,
         "transform": `translate3d(${this.designX}px, ${this.designY}px, 0)`,
-        "resize": `${this.canResize}`,
       }
     },
 
@@ -182,49 +181,17 @@ export default {
       }
     }
   },
-
-  methods: {
-      onDragStart(event) {
-      // console.log(100*(event.screenX)/screen.availWidth);
-
-        // console.log('screenY', screen.availHeight);
-      this.designX = event.clientX - 0.110677 * screen.availWidth;
-      //   this.designX = 100 * event.clientX / screen.availWidth;
-      //   this.designY = 100 * event.clientY / screen.availHeight;
-
-        console.log('screenX', screen.availWidth, event.clientX, this.designX);
-
-      // console.log(event.screenY, screen.availHeight,event.screenY/screen.availHeight)
-      this.designY = event.clientY - 0.2305825 * screen.availHeight;
-        console.log('screenY', screen.availHeight, event.clientY, this.designY);
-    },
-
-    onDrop() {
-        console.log('asdasdas');
-    }
-  }
 };
 </script>
 
 <style scoped lang="stylus">
 .design-page--design
-  /*border-style solid*/
-  display inline-block
-  /*background red*/
-  overflow hidden
-  line-height 0
-  /*max-height 100px*/
-  /*max-width 100px*/
+  border-style solid
+  max-height 100px
+  max-width 100px
   /*position absolute*/
 
 .design-page--image-hover
   border-style solid
   border-color orangered
-
-.resizable
-  display inline-block
-  background red
-  resize both
-  overflow hidden
-  line-height 0
 </style>
