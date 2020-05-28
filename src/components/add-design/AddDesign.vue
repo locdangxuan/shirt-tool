@@ -26,6 +26,7 @@
 
 <script>
 import { fabric } from 'fabric';
+
 export default {
   props: {
     urlDesign: { type: String, default: null },
@@ -70,6 +71,11 @@ export default {
           canvas.add(img);
         });
 
+  watch: {
+    urlDesign(val) {
+      if (val !== null) {
+        const canvas = new fabric.Canvas('canvas');
+        canvas.remove();
 
       }
     },
