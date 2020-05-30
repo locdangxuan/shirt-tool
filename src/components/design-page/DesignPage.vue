@@ -145,20 +145,11 @@ export default {
 
   computed: {
     urlDesign() {
-      console.log('design', this.design);
       if (this.design !== undefined) {
         const urlDesign =  URL.createObjectURL(this.design);
         return urlDesign;
       }
       return null;
-    },
-
-    designStyle() {
-      return {
-        // "top": `${this.designY}%`,
-        // "left": `${this.designX}%`,
-        "transform": `translate3d(${this.designX}px, ${this.designY}px, 0)`,
-      }
     },
 
     rotateImageStyle() {

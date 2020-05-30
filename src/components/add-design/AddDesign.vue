@@ -1,6 +1,6 @@
 <template>
   <v-row no-gutters>
-    <v-col class="mockup-and-design justify-center" cols="12" @click="onMouseMove($event)">
+    <v-col class="mockup-and-design justify-center" cols="12">
       <canvas class="add-design" id="canvas" width="500" height="500" />
       <div class="mockup" :style="rotateImageStyle" >
       </div>
@@ -55,12 +55,6 @@ export default {
     },
   },
 
-  methods: {
-    onMouseMove(event) {
-      console.log('asd', event.clientX, event.clientY);
-    }
-  },
-
   mounted() {
     this.canvas = new fabric.Canvas('canvas');
   },
@@ -68,16 +62,24 @@ export default {
   watch: {
     urlDesign(val) {
       if (val !== null) {
-        // const canvas = new fabric.Canvas('canvas');
-        // canvas.remove();
         const canvas = this.canvas;
         fabric.Image.fromURL(val, function (myImg) {
-          const img = myImg.scale(0.2).set({
+          const img = myImg.set({
             top: 10,
             left: 10,
           });
 
           canvas.add(img);
+          canvas.on('object:moving',function(e){
+            console.log('x: ', e.pointer.x);
+            console.log('y: ', e.pointer.y);
+          });
+
+          canvas.on('object:modified',function(e){
+            console.log('height: ', e.target.height * e.target.scaleY);
+            console.log('width: ', e.target.width * e.target.scaleX);
+            console.log('angle: ', e.target.angle);
+          });
         });
       }
     }
