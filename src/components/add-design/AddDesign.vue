@@ -62,7 +62,7 @@ export default {
         // const canvas = new fabric.Canvas('canvas');
         // canvas.remove();
         const canvas = this.canvas;
-        fabric.Image.fromURL(val, function(myImg) {
+        fabric.Image.fromURL(val, function (myImg) {
           const img = myImg.scale(0.2).set({
             top: 10,
             left: 10,
@@ -70,13 +70,6 @@ export default {
 
           canvas.add(img);
         });
-
-  watch: {
-    urlDesign(val) {
-      if (val !== null) {
-        const canvas = new fabric.Canvas('canvas');
-        canvas.remove();
-
       }
     },
   },

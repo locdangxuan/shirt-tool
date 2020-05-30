@@ -8,36 +8,77 @@
               v-model="currentMockupType"
               :items="mockUpType"
               label="Select Mockup Type"
-              solo
+              outlined
               dense
+              v-if="!isCreateNewMockupType"
             ></v-select>
+
+            <v-text-field
+              v-else
+              v-model="newMockupTypeTitle"
+              label="Please name new mockup type title!"
+              outlined
+              dense
+            />
           </v-col>
 
           <v-col cols="4" class="d-flex align-start justify-start">
-            <v-btn color="primary" style="height: 38px"><b>+</b></v-btn>
+            <v-btn
+              color="primary"
+              style="height: 38px" @click="isCreateNewMockupType = true"
+              v-if="!isCreateNewMockupType"
+            >
+              <b>+</b>
+            </v-btn>
+
+            <v-btn color="red" class="white--text" @click="createNewMockupType()" v-else>Save</v-btn>
+
+            <v-btn
+              text
+              color="grey"
+              v-if="isCreateNewMockupType"
+              class="ml-2"
+              @click="isCreateNewMockupType = false, newMockupTypeTitle = null"
+            >
+              Cancel
+            </v-btn>
           </v-col>
 
           <v-col cols="4"/>
         </v-row>
       </v-col>
 
-      <v-col cols="12" class="d-flex" v-if="currentMockupType !== null">
+      <v-col cols="12" class="d-flex" v-if="currentMockupType !== null || isCreateNewMockupType">
         <v-row>
           <v-col cols="9">
-            <h2>Main Image</h2>
+            <h2 class="d-flex justify-center mb-5">Main Image</h2>
 
             <div class="d-flex align-center">
               <v-img :src="mainImage.url||require('@/assets/empty.jpg')" contain height="400px" width="400px"/>
             </div>
 
-            <v-file-input
-              label="File input"
-              filled
-              prepend-icon="mdi-camera"
-              class="mt-5"
-              v-model="mainImage.data"
-              dense
-            ></v-file-input>
+            <v-row>
+              <v-col cols="6" class="d-flex align-center">
+                <v-file-input
+                  :label="isDefaultMockupInGearment ? `Can't upload main image` : 'Upload main image'"
+                  filled
+                  prepend-icon="mdi-camera"
+                  class="mt-5"
+                  v-model="mainImage.data"
+                  dense
+                  :disabled="isDefaultMockupInGearment"
+                />
+              </v-col>
+
+              <v-col cols="6" class="d-flex align-center justify-center">
+                <v-btn
+                  :color="isDefaultMockupInGearment ? 'red' : ''"
+                  @click="isDefaultMockupInGearment = !isDefaultMockupInGearment"
+                >
+                  Use Default Mockup In Gearment
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-col>
 
           <v-col cols="3">
@@ -48,7 +89,7 @@
                 </div>
 
                 <v-file-input
-                  label="File input"
+                  label="Upload image 1"
                   prepend-icon="mdi-camera"
                   class="mt-5"
                   v-model="image1.data"
@@ -62,7 +103,7 @@
                 </div>
 
                 <v-file-input
-                  label="File input"
+                  label="Upload image 2"
                   prepend-icon="mdi-camera"
                   class="mt-5"
                   v-model="image2.data"
@@ -76,7 +117,7 @@
                 </div>
 
                 <v-file-input
-                  label="File input"
+                  label="Upload image 3"
                   prepend-icon="mdi-camera"
                   class="mt-5"
                   v-model="image3.data"
@@ -96,99 +137,16 @@
                 <h2>Color of mockup</h2>
               </v-col>
 
-              <v-col cols="6" class="d-flex justify-end">
-                <v-btn style="height: 38px" @click="newOtherImageDialog = true">Add new other image</v-btn>
-              </v-col>
+              <v-col cols="6"/>
 
-              <v-col
-                cols="2"
-                class="d-flex justify-center"
-                v-for="(otherImage, i) in otherImages"
-                :key="i"
-              >
-                <v-card height="300px">
-                  <v-row no-gutters class="pa-4">
-                    <v-col cols="12" class="d-flex align-center justify-center">
-                      <v-img :src="otherImage.url||require('@/assets/empty.jpg')" contain height="250px" width="250px"/>
-                    </v-col>
-
-                    <v-col cols="12" class="d-flex align-center justify-center">
-                      <span v-if="otherImage.title">
-                        <i>
-                          <b>{{ otherImage.title }}</b>
-                        </i>
-                    </span>
-                    </v-col>
-                  </v-row>
-                </v-card>
+              <v-col cols="12">
+                <image-uploader/>
               </v-col>
-              <image-uploader />
             </v-row>
           </v-col>
         </v-row>
       </v-col>
     </v-row>
-
-    <v-dialog
-      v-model="newOtherImageDialog"
-      @keydown.esc="newOtherImageDialog = false"
-      max-width="500px"
-    >
-      <v-card class="mockup-type--new-other-image-dialog">
-        <v-row no-gutters>
-          <v-col cols="12" class="pa-5 d-flex align-center justify-center">
-            <h1>Create new other image</h1>
-          </v-col>
-
-          <v-col cols="12" class="pa-5">
-            <v-text-field v-model="tmpOtherImage.title" label="Title"/>
-
-            <div class="d-flex align-center">
-              <v-img :src="tmpOtherImage.url||require('@/assets/empty.jpg')" contain height="250px" width="250px"/>
-            </div>
-
-            <v-file-input
-              label="File input"
-              filled
-              prepend-icon="mdi-camera"
-              class="mt-5"
-              v-model="tmpOtherImage.data"
-            ></v-file-input>
-
-            <v-row no-gutters>
-              <v-spacer/>
-
-              <v-btn
-                color="grey"
-                text
-                class="mr-2"
-                @click="[newOtherImageDialog = false, $_clearDataInNewOtherImageDialog()]"
-              >
-                Cancel
-              </v-btn>
-
-              <v-btn color="blue" :disabled="!tmpOtherImage.data" @click="createNewOtherImage()">Save</v-btn>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-dialog>
-
-<!--    move to design page-->
-    <div style="height: 100px; position: relative" v-if="currentMockupType">
-      <v-fab-transition>
-        <v-btn
-          color="pink"
-          dark
-          absolute
-          top
-          right
-          to="/designPage"
-        >
-          <v-icon>mdi-arrow-right</v-icon>
-        </v-btn>
-      </v-fab-transition>
-    </div>
   </v-container>
 
 <!--                <ImageInput-->
@@ -222,6 +180,9 @@ export default {
 
   data() {
     return {
+      newMockupTypeTitle: null,
+      isCreateNewMockupType: false,
+      isDefaultMockupInGearment: false,
       mockUpType: [
         "Nam",
         "Nu",
@@ -244,34 +205,24 @@ export default {
         data: null,
         url: null,
       },
-      newOtherImageDialog: false,
-
-      otherImages: [],
-
-      tmpOtherImage: {
-        title: null,
-        url: null,
-        data: null,
-      },
     };
   },
 
   watch: {
-    'tmpOtherImage.data': {
-      handler(val) {
-        if (val !== null) {
-          this.tmpOtherImage.url = URL.createObjectURL(val);
-        } else {
-          this.tmpOtherImage.url = val;
-        }
-      },
-
-      deep: true,
+    isDefaultMockupInGearment(val) {
+      if (val) {
+        this.mainImage.url = require('@/assets/mu.png');
+      } else if (this.mainImage.data) {
+        this.mainImage.url = URL.createObjectURL(this.mainImage.data);
+      } else {
+        this.mainImage.url = require('@/assets/empty.jpg');
+      }
     },
 
     'mainImage.data': {
       handler(val) {
-        val === undefined ? this.mainImage.url = null : this.mainImage.url = URL.createObjectURL(val);
+        const condition = (val === undefined) && (this.isDefaultMockupInGearment === false);
+        condition === true ? this.mainImage.url = null : this.mainImage.url = URL.createObjectURL(val);
       },
     },
 
@@ -295,27 +246,13 @@ export default {
   },
 
   methods: {
-    createNewOtherImage() {
-      this.newOtherImageDialog = false;
+    createNewMockupType() {
+      this.isCreateNewMockupType = false;
+      if (this.newMockupTypeTitle !== null) {
+        this.mockUpType.push(this.newMockupTypeTitle);
+      }
 
-      const temp = Object.assign({}, this.tmpOtherImage);
-
-      console.log(temp);
-
-      this.otherImages.push(temp);
-      console.log('1', this.otherImages);
-      this.$_clearDataInNewOtherImageDialog();
-      console.log('2', this.otherImages);
-    },
-
-    $_clearDataInNewOtherImageDialog() {
-      this.tmpOtherImage.title = null;
-      this.tmpOtherImage.url = null;
-      this.tmpOtherImage.data = null;
-    },
-
-    onMainPhotoChanged() {
-
+      this.newMockupTypeTitle = null;
     }
   }
 };
