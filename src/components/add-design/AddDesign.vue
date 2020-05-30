@@ -1,11 +1,15 @@
 <template>
   <v-row no-gutters>
-    <v-col cols="12" :style="rotateImageStyle" class="d-flex justify-center">
-      <canvas class="add-design" id="canvas" width="500" height="500"/>
+    <v-col class="mockup-and-design justify-center" cols="12" @click="onMouseMove($event)">
+      <canvas class="add-design" id="canvas" width="500" height="500" />
+      <div class="mockup" :style="rotateImageStyle" >
+      </div>
     </v-col>
 
+
+
     <v-col cols="12" class="d-flex justify-center mt-5">
-      <v-btn text @click="radius = radius - 10">
+      <v-btn text @click="radius = radius - 1">
         <v-icon>mdi-rotate-left</v-icon>
       </v-btn>
 
@@ -17,7 +21,7 @@
         <v-icon>mdi-rotate-right-variant</v-icon>
       </v-btn>
 
-      <v-btn text @click="radius = radius + 10">
+      <v-btn text @click="radius = radius + 1">
         <v-icon>mdi-rotate-right</v-icon>
       </v-btn>
     </v-col>
@@ -51,6 +55,12 @@ export default {
     },
   },
 
+  methods: {
+    onMouseMove(event) {
+      console.log('asd', event.clientX, event.clientY);
+    }
+  },
+
   mounted() {
     this.canvas = new fabric.Canvas('canvas');
   },
@@ -70,16 +80,30 @@ export default {
           canvas.add(img);
         });
       }
-    },
+    }
   },
 };
 </script>
 
 <style lang="stylus" scoped>
+.mockup-and-design
+  position relative
+  display flex
+  justify-items center
+
 .add-design
-  border 1px solid black
   text-align center
+  background-repeat no-repeat
+
+.mockup
+  position absolute
+  top 0
   background-image url('mockupDemo.jpg')
   background-size 500px 500px
-  background-repeat no-repeat
+</style>
+
+<style lang="stylus">
+.mockup-and-design
+  .canvas-container
+    z-index 1
 </style>
