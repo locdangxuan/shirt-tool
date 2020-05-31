@@ -14,10 +14,10 @@
 
     <div v-show="!images.length">
       <i class="fa fa-cloud-upload"></i>
-      <p>Drag your images here</p>
-      <div>OR</div>
+      <p>Kéo thả ảnh của bạn ở đây</p>
+      <div>Hoặc</div>
       <div class="file-input">
-        <label for="file">Select a file</label>
+        <label for="file">Chọn 1 file</label>
         <input type="file" id="file" @change="onInputChange" multiple>
       </div>
     </div>

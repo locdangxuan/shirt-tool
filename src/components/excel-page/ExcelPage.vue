@@ -2,14 +2,14 @@
   <v-container fluid>
     <v-row no-gutters>
       <v-col cols="12" class="d-flex justify-center">
-        <h1>Excel Page</h1>
+        <h1>Trang Excel</h1>
       </v-col>
 
       <v-col cols="3"/>
 
       <v-col cols="6">
         <v-file-input
-          label="Input file excel"
+          label="Nhập file excel"
           class="mt-5"
           dense
           v-model="excelFile"
@@ -17,7 +17,7 @@
 
         <div class="d-flex align-center justify-center">
           <v-btn color="red" text :disabled="isDisableGetFile" @click.prevent="downloadItem(excelFile)">
-            <h2>Get file</h2>
+            <h2>Lấy file</h2>
           </v-btn>
         </div>
       </v-col>
@@ -29,13 +29,16 @@
       v-model="notification"
       :timeout="5000"
     >
-      Upload file is not .xlsx file, please choose other file
+      <span class="red--text">
+        File tải lên không phải là file .xlsx, làm ơn chọn một file khác
+      </span>
+
       <v-btn
         color="blue"
         text
         @click="notification = false"
       >
-        Close
+        Hủy bỏ
       </v-btn>
     </v-snackbar>
   </v-container>

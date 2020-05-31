@@ -7,7 +7,7 @@
             <v-select
               v-model="currentMockupType"
               :items="mockUpType"
-              label="Select Mockup Type"
+              label="Chọn loại Mockup"
               outlined
               dense
               v-if="!isCreateNewMockupType"
@@ -16,7 +16,7 @@
             <v-text-field
               v-else
               v-model="newMockupTypeTitle"
-              label="Please name new mockup type title!"
+              label="Nhập tên loại Mockup ở đây!"
               outlined
               dense
             />
@@ -31,16 +31,24 @@
               <b>+</b>
             </v-btn>
 
-            <v-btn color="red" class="white--text" @click="createNewMockupType()" v-else>Save</v-btn>
+            <v-btn
+              style="height: 38px"
+              color="red"
+              class="white--text ml-2"
+              @click="createNewMockupType()"
+              v-if="currentMockupType !== null || isCreateNewMockupType"
+            >
+              Lưu
+            </v-btn>
 
             <v-btn
-              text
+              style="height: 38px"
               color="grey"
-              v-if="isCreateNewMockupType"
               class="ml-2"
-              @click="isCreateNewMockupType = false, newMockupTypeTitle = null"
+              @click="isCreateNewMockupType = false, currentMockupType = null, newMockupTypeTitle = null"
+              v-if="currentMockupType !== null || isCreateNewMockupType"
             >
-              Cancel
+              Hủy bỏ
             </v-btn>
           </v-col>
 
@@ -60,7 +68,7 @@
             <v-row>
               <v-col cols="6" class="d-flex align-center">
                 <v-file-input
-                  :label="isDefaultMockupInGearment ? `Can't upload main image` : 'Upload main image'"
+                  :label="isDefaultMockupInGearment ? `Không thể tải ảnh lên` : 'Tải Main Image'"
                   filled
                   prepend-icon="mdi-camera"
                   class="mt-5"
@@ -75,7 +83,7 @@
                   :color="isDefaultMockupInGearment ? 'red' : ''"
                   @click="isDefaultMockupInGearment = !isDefaultMockupInGearment"
                 >
-                  Use Default Mockup In Gearment
+                  Sử dụng Mockup mặc định của Gearment
                 </v-btn>
               </v-col>
             </v-row>
@@ -89,7 +97,7 @@
                 </div>
 
                 <v-file-input
-                  label="Upload image 1"
+                  label="Tải image 1"
                   prepend-icon="mdi-camera"
                   class="mt-5"
                   v-model="image1.data"
@@ -103,7 +111,7 @@
                 </div>
 
                 <v-file-input
-                  label="Upload image 2"
+                  label="Tải image 2"
                   prepend-icon="mdi-camera"
                   class="mt-5"
                   v-model="image2.data"
@@ -117,7 +125,7 @@
                 </div>
 
                 <v-file-input
-                  label="Upload image 3"
+                  label="Tải image 3"
                   prepend-icon="mdi-camera"
                   class="mt-5"
                   v-model="image3.data"
@@ -134,7 +142,7 @@
           <v-col cols="12">
             <v-row>
               <v-col cols="6" class="d-flex justify-start">
-                <h2>Color of mockup</h2>
+                <h2>Màu Mockup</h2>
               </v-col>
 
               <v-col cols="6"/>
@@ -211,7 +219,7 @@ export default {
   watch: {
     isDefaultMockupInGearment(val) {
       if (val) {
-        this.mainImage.url = require('@/assets/mu.png');
+        this.mainImage.url = require('@/assets/black-shirt.jpg');
       } else if (this.mainImage.data) {
         this.mainImage.url = URL.createObjectURL(this.mainImage.data);
       } else {

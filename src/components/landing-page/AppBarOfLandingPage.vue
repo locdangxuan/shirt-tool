@@ -5,14 +5,13 @@
 
       <v-spacer/>
 
-
       <v-spacer/>
 
       <v-btn text @click="openLoginDialog()">
-        <h2>Login</h2>
+        <h2>Đăng nhập</h2>
       </v-btn>
       <v-btn text @click="openRegisterDialog()">
-        <h2>Register</h2>
+        <h2>Đăng ký</h2>
       </v-btn>
     </v-app-bar>
 
@@ -22,17 +21,17 @@
     >
       <v-card ref="login">
         <v-card-title class="d-flex justify-center">
-          <h2>Login</h2>
+          <h2>Đăng nhập</h2>
         </v-card-title>
 
         <v-card-text>
-          <v-text-field label="Username" :rules="[rules.required]" ref="username"/>
+          <v-text-field label="Tên đăng nhập" :rules="[rules.required]" ref="username"/>
 
           <v-text-field
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required]"
             :type="showPassword ? 'text' : 'password'"
-            label="Password"
+            label="Mật khẩu"
             @click:append="showPassword = !showPassword"
             ref="password"
           ></v-text-field>
@@ -41,9 +40,9 @@
         <v-card-actions>
           <v-spacer/>
 
-          <v-btn color="grey" text @click="loginDialog = false">Cancel</v-btn>
+          <v-btn color="grey" text @click="loginDialog = false">Hủy bỏ</v-btn>
 
-          <v-btn color="blue" @click="login()">Login</v-btn>
+          <v-btn color="blue" @click="login()">Đăng nhập</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -54,18 +53,18 @@
     >
       <v-card ref="register">
         <v-card-title class="d-flex justify-center">
-          <h2>Register</h2>
+          <h2>Đăng ký</h2>
         </v-card-title>
 
         <v-card-text>
-          <v-text-field label="Firstname" :rules="[rules.required]" ref="firstname"/>
-          <v-text-field label="Lastname" :rules="[rules.required]" ref="lastname"/>
+          <v-text-field label="Tên" :rules="[rules.required]" ref="firstname"/>
+          <v-text-field label="Họ" :rules="[rules.required]" ref="lastname"/>
           <v-text-field label="Username" :rules="[rules.required]" ref="username"/>
           <v-text-field
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required]"
             :type="showPassword ? 'text' : 'password'"
-            label="Password"
+            label="Mật khẩu"
             @click:append="showPassword = !showPassword"
             ref="password"
           ></v-text-field>
@@ -74,20 +73,19 @@
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required]"
             :type="showPassword ? 'text' : 'confirm password'"
-            label="Confirm Password"
+            label="Xác nhận mật khẩu"
             @click:append="showPassword = !showPassword"
             ref="confirm_password"
           ></v-text-field>
-
 
         </v-card-text>
 
         <v-card-actions>
           <v-spacer/>
 
-          <v-btn color="grey" text @click="registerDialog = false">Cancel</v-btn>
+          <v-btn color="grey" text @click="registerDialog = false">Hủy bỏ</v-btn>
 
-          <v-btn color="blue" @click="register()">Register</v-btn>
+          <v-btn color="blue" @click="register()">Đăng ký</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
