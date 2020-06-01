@@ -5,7 +5,7 @@
     clipped
     absolute
   >
-    <h3 class="mt-5">NAVIGATION</h3>
+    <h3 class="mt-5">THANH ĐIỀU HƯỚNG</h3>
 
     <v-list class="pa-0 navigation-drawer--list">
       <v-list-item to="/mockupType">
@@ -14,7 +14,7 @@
         </v-list-item-action>
 
         <v-list-item-content>
-          <span>Mockup Type</span>
+          <span>Loại Mockup</span>
         </v-list-item-content>
       </v-list-item>
 
@@ -24,7 +24,7 @@
         </v-list-item-action>
 
         <v-list-item-content>
-          <span>Make Design</span>
+          <span>Design</span>
         </v-list-item-content>
       </v-list-item>
 
@@ -34,7 +34,7 @@
         </v-list-item-action>
 
         <v-list-item-content>
-          <span>Upload Excel</span>
+          <span>Tải Excel</span>
         </v-list-item-content>
       </v-list-item>
     </v-list>

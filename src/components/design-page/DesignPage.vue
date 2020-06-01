@@ -7,8 +7,8 @@
             <v-select
               v-model="currentMockupType"
               :items="mockUpType"
-              label="Select Mockup Type"
-              solo
+              label="Chọn loại Mockup"
+              outlined
               dense
             />
           </v-col>
@@ -46,17 +46,17 @@
           <v-col cols="5" class="d-flex justify-center">
             <v-card>
               <v-card-title>
-                Mockup title
+                Tiêu đề
               </v-card-title>
 
               <v-card-subtitle>
-                Mockup subtitle
+                Tiêu đề phụ
               </v-card-subtitle>
 
               <v-card-text>
                 <v-row>
                   <v-col cols="12">
-                    <b><u>Color: </u></b>
+                    <b><u>Màu Mockup: </u></b>
                   </v-col>
 
                   <v-col cols="3">
@@ -86,12 +86,12 @@
 
                 <v-row no-gutters>
                   <v-col cols="12" class="mb-5">
-                    <h2>Upload Design</h2>
+                    <h2>Tải Design</h2>
                   </v-col>
 
                   <v-col cols="12">
                     <v-file-input
-                      label="Design input"
+                      label="Chọn Design"
                       filled
                       prepend-icon="mdi-camera"
                       v-model="design"
