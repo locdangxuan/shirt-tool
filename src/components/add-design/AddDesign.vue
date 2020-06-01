@@ -1,14 +1,14 @@
 <template>
   <v-row no-gutters>
     <v-col class="mockup-and-design justify-center" cols="12">
-      <canvas class="add-design" id="canvas" width="500" height="500" />
-      <div class="mockup" :style="rotateImageStyle" >
-      </div>
+      <canvas class="add-design" id="canvas" width="500" height="510" />
+      <!-- <div class="mockup" :style="rotateImageStyle" >
+      </div> -->
     </v-col>
 
 
 
-    <v-col cols="12" class="d-flex justify-center mt-5">
+    <!-- <v-col cols="12" class="d-flex justify-center mt-5">
       <v-btn text @click="radius = radius - 1">
         <v-icon>mdi-rotate-left</v-icon>
       </v-btn>
@@ -24,7 +24,7 @@
       <v-btn text @click="radius = radius + 1">
         <v-icon>mdi-rotate-right</v-icon>
       </v-btn>
-    </v-col>
+    </v-col> -->
   </v-row>
 </template>
 
@@ -56,7 +56,20 @@ export default {
   },
 
   mounted() {
-    this.canvas = new fabric.Canvas('canvas');
+    this.canvas = new fabric.Canvas('canvas', {
+      preserveObjectStacking: true,
+    });
+    const canvas = this.canvas
+    fabric.Image.fromURL("./images/mockupDemo.jpg", function(myImg){
+      const img = myImg.set({
+        top: 50,
+        left: 0,
+        width: 500,
+        height: 500,
+        border: 1
+      })
+      canvas.add(img);
+    });
   },
 
   watch: {
@@ -96,6 +109,7 @@ export default {
 .add-design
   text-align center
   background-repeat no-repeat
+  border 1px solid red
 
 .mockup
   position absolute
