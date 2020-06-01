@@ -62,7 +62,8 @@
             <h2 class="d-flex justify-center mb-5">Main Image</h2>
 
             <div class="d-flex align-center">
-              <v-img :src="mainImage.url||require('@/assets/empty.jpg')" contain height="400px" width="400px"/>
+<!--              <v-img :src="mainImage.url||require('@/assets/empty.jpg')" contain height="400px" width="400px"/>-->
+              <add-design :url-design="urlDesign"/>
             </div>
 
             <v-row>
@@ -76,6 +77,7 @@
                   dense
                   :disabled="isDefaultMockupInGearment"
                 />
+
               </v-col>
 
               <v-col cols="6" class="d-flex align-center justify-center">
@@ -85,6 +87,16 @@
                 >
                   Sử dụng Mockup mặc định của Gearment
                 </v-btn>
+              </v-col>
+
+              <v-col cols="12">
+                <v-file-input
+                  label="Chọn Design"
+                  filled
+                  prepend-icon="mdi-camera"
+                  v-model="design"
+                  dense
+                />
               </v-col>
             </v-row>
           </v-col>
@@ -177,10 +189,12 @@
 // import VImageInput from 'vuetify-image-input';
 // import ImageInput from "@/components/common/ImageInput";
 import ImageUploader from '../image-uploader/ImageUploader';
+import AddDesign from "../add-design/AddDesign";
 export default {
   name: 'mockup-type-page',
 
   components: {
+    AddDesign,
     // VImageInput,
     // ImageInput,
     ImageUploader
@@ -213,7 +227,18 @@ export default {
         data: null,
         url: null,
       },
+      design: undefined,
     };
+  },
+
+  computed: {
+    urlDesign() {
+      if (this.design !== undefined) {
+        const urlDesign =  URL.createObjectURL(this.design);
+        return urlDesign;
+      }
+      return null;
+    },
   },
 
   watch: {
@@ -230,12 +255,14 @@ export default {
     'mainImage.data': {
       handler(val) {
         const condition = (val === undefined) && (this.isDefaultMockupInGearment === false);
+        console.log('val',val)
         condition === true ? this.mainImage.url = null : this.mainImage.url = URL.createObjectURL(val);
       },
     },
 
     'image1.data': {
       handler(val) {
+        console.log('file', val);
         val === undefined ? this.image1.url = null : this.image1.url = URL.createObjectURL(val);
       },
     },

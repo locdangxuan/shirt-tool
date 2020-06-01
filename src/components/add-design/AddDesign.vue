@@ -1,7 +1,7 @@
 <template>
   <v-row no-gutters>
     <v-col class="mockup-and-design justify-center" cols="12">
-      <canvas class="add-design" id="canvas" width="500" height="510" />
+      <canvas class="add-design" id="canvas" width="415" height="495" />
       <!-- <div class="mockup" :style="rotateImageStyle" >
       </div> -->
     </v-col>
@@ -129,12 +129,10 @@ export default {
       preserveObjectStacking: true,
     });
     const canvas = this.canvas
-    fabric.Image.fromURL("./images/mockupDemo.jpg", function(myImg){
-      const img = myImg.set({
+    fabric.Image.fromURL("./images/mockupDemoGearment.png", function(myImg){
+      const img = myImg.scale(0.4).set({
         top: 50,
         left: 0,
-        width: 500,
-        height: 500,
         border: 1
       })
       canvas.add(img);
