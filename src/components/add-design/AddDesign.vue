@@ -6,11 +6,9 @@
       </div> -->
     </v-col>
 
-<!--    <v-col cols="12">-->
-<!--      <v-btn @click="saveImage()">Save image</v-btn>-->
-
-<!--      <a download="FILENAME.png" :href="href" @click="getData(val)">download</a>-->
-<!--    </v-col>-->
+    <v-col cols="12">
+      <v-btn @click="saveImage()">Save image</v-btn>
+    </v-col>
 
     <!-- <v-col cols="12" class="d-flex justify-center mt-5">
       <v-btn text @click="radius = radius - 1">
@@ -114,9 +112,9 @@ export default {
       // console.log('byte character', byteCharacter);
 
 
-      // let FileSaver = require('file-saver');
+      let FileSaver = require('file-saver');
       // var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-      // FileSaver.saveAs(this.file, "test.txt");
+      FileSaver.saveAs(this.file, "mockup.png");
 
       console.log('file', this.file);
       console.log('fabric canvas', this.href);
@@ -129,7 +127,7 @@ export default {
       preserveObjectStacking: true,
     });
     const canvas = this.canvas
-    fabric.Image.fromURL("./images/mockupDemoGearment.png", function(myImg){
+    fabric.Image.fromURL("./images/mockup.png", function(myImg){
       const img = myImg.scale(0.4).set({
         top: 50,
         left: 0,
@@ -177,7 +175,7 @@ export default {
 .add-design
   text-align center
   background-repeat no-repeat
-  border 1px solid red
+  border 1px solid #ff0000
 
 .mockup
   position absolute

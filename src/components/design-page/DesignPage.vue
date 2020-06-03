@@ -12,7 +12,6 @@
               dense
             />
           </v-col>
-
           <v-col cols="8"/>
         </v-row>
       </v-col>
